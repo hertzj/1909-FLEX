@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+h1 {
+    color: dodgerblue;
+}
+.container {
+    background-color: tomato;
+    padding: 1rem;
+    margin: 1rem;
+}
+h1.title {
+    border-bottom: solid 2px dodgerblue;
+}
+.special {
+    color: yellowgreen;
+}
+#verySpecial {
+    color: green;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    border: solid 1px black;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+#list {
+    margin: 0 10%;
+}
+/* img {
+    width: 25%;
+} */
+span {
+    display: block;
+}
+.dog {
+    background-image: url(https://cdn.nsarco.com/skin/bop/images/home-page/dog-with-books.jpg);
+    background-size: cover;
+    border-radius: 5rem;
+    height: 20rem;
+    width: 10rem;
+}
