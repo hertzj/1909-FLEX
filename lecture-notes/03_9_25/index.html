@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>JS Demo</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <div id='main' class='container'>
+            <button>Click me!</button>
+            <div id='box-container' class="boxContainer"></div>
+        </div>
+    </body>
+    <script>
+        const main = document.querySelector('div');
+        main.addEventListener('click', (ev) => {
+            // console.log(ev);
+            console.log('clicked background green box');
+        })
+        const boxContainer = document.querySelector('div div')
+        const button = document.querySelector('div button');
+        let boxCount = 0;
+
+        const randomColors = ['gold', 'aqua', 'burlywood']
+
+        // button.addEventListener('click', () => {
+        //     console.log('Button was clicked!')
+        // });
+        
+        const addColoredBox = (ev) =>  {
+            ev.stopPropagation();
+            ++boxCount;
+            const box = document.createElement('div');
+            box.classList.add('box'); // we can use classList to add and remove classes
+            // box.classList.remove('box');
+            box.style['background-color'] = randomColors[Math.floor(Math.random() * randomColors.length)];
+            box.addEventListener('click', (ev) => {
+                console.log(boxCount);
+                ev.stopPropagation(); // this tells the event to stop bubbling
+            });
+            boxContainer.appendChild(box);
+        };
+
+        button.addEventListener('click', addColoredBox
+        );
+    </script>
+</html>

@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js'></script>
+        <link rel="stylesheet" href="styles.css">
+        <title>CRUD and Promises</title>
+    </head>
+    <body>
+        <div id='app'></div>
+        <script>
+            const div = document.querySelector('#app');
+            // window.fetch('/api')
+            //     .then(res => res.json())
+            //     .then(data => {
+            //         div.innerText = JSON.stringify(data)
+            //     })
+            // axios.get('/api')
+            //     .then(res => {
+            //         div.innerText = JSON.stringify(res.data)
+            //     })
+            // axios.put('/api')
+            //     .then(res => {
+            //         axios.get('/api')
+            //     })
+            //     .then(res=> {
+            //         div.innerHTML = JSON.stringify(res.data)
+            //     })
+            // axios.post('/api', {
+            //     count: Infinity,
+            // })
+            // .then(res => {
+            //     return axios.get('/api')
+            // })
+            // .then(res => {
+            //     div.innerHTML = JSON.stringify(res.data)
+            // })
+            // .catch(err => {
+            //     div.innerHTML = JSON.stringify(err.response.data)
+            // })
+            axios.post('/api', {
+                count: Infinity,
+            })
+            .then(res => {
+                return axios.get('/api')
+            })
+            .then(res => {
+                div.innerHTML = JSON.stringify(res.data)
+            })
+            .catch(err => {
+                div.innerHTML = JSON.stringify(err.response.data)
+            })
+               
+        </script>
+    </body>
+</html>

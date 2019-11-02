@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title>React Intro</title>
+        <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+        <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="app"></div>
+    </body>
+    <script type='text/babel'>
+        const app = document.getElementById('app');
+
+        const Clicker = props => {
+            const count = props.count;
+            const increment = props.increment
+            return (
+            <div>
+                <span>Count: {this.state.count} </span>
+                <button
+                onClick = {increment} 
+                >Click Me!</button>
+            </div>
+        )
+       }
+
+        class PageContainer extends React.component {
+            constructor() {
+                super();
+                this.state = {
+                    count: 0,
+                };
+                this.incrementCount = this.incrementCount.bind(this);
+            }
+
+            incrementCount() {
+                this.setState({
+                    count: this.state.count + 1,
+                });
+            }
+            render() {
+               return (
+                   <div
+                        style = {
+                            style: {
+                                backgroundColor: 'gray',
+                                width: '100vw',
+                                display: 'flex',
+                                flexDirection: 'column'
+                            }
+                        }
+                   >
+                        <h1>Our First Stateful Component</h1>
+                        <Clicker count = {this.state.count} increment = {this.incrementCount}>
+
+                    </div>
+               )
+           }
+       }
+
+
+        ReactDOM.render(<PageContainer>, app)
+    </script>
+</html>

@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100vw;
+    height: 100vh;
+}
+
+.normal {
+    flex-grow: 1;
+    height: 20%;
+    background-color: tomato;
+    border: solid 1px darkolivegreen;
+    display: flex;
+    flex-direction: column;
+    /* putting a flexbox inside a flexbox */
+}
+
+.odd {
+    flex-grow: 2;
+}
+
+@media (max-width: 600px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 100vw;
+        height: 100vh;
+    }
+}

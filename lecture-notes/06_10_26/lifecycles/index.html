@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <title>React Intro</title>
+        <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+        <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="app"></div>
+    </body>
+    <script type='text/babel'>
+        const app = document.getElementById('app');
+
+        class Counter extends React.Component {
+            componentDidUpdate() {
+                console.log('counter rerendered')
+            }
+            render() {
+                const { count } = this.props
+                return (
+                    <span>{count}</span>
+                )
+            }
+        }
+
+
+        class PageContainer extends React.Component {
+            constructor() {
+                super();
+                this.state = {
+                    user: null,
+                    count: 0
+                };
+            }
+
+            incrementCount = () => {
+                this.setState({
+                    count: this.state.count + 1;
+                })
+            }
+
+            componentDidMount() {
+                window.fetch('https://acme-users-api-rev.herokuapp.com/api/users/random')
+                    .then(res => res.json())
+                    .then(user => {
+                        this.setState({
+                            user,
+                        }) // user: user can be typed like this since key/value are same
+                    })
+                    .catch(e => {
+                        window.alert(e.message);
+                    })
+
+                    window.increment = this.incrementCount()
+            }
+
+            componentDidUpdate() {
+                console.log('I rerendered.')
+            }
+
+
+            render() {
+                const { user, count } = this.state;
+               return (
+                   <div
+                        style = {
+                            style: {
+                                backgroundColor: 'gray',
+                                width: '100vw',
+                                display: 'flex',
+                                flexDirection: 'column'
+                            }
+                        }
+                   >
+                        <h1>Our First Stateful Component</h1>
+                        {
+                            user ? <span>{user.fullName}</span> : <span>Loading...</span>
+                        }
+                        <Counter />
+                    </div>
+               )
+           }
+       }
+
+
+        ReactDOM.render(<PageContainer>, app)
+    </script>
+</html>

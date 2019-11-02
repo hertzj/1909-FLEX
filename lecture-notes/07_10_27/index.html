@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js'></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.1.2/react-router-dom.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div id='root'></div>
+    </body>
+    <script type="text/babel">
+        const root = document.getElementById('root');
+        const { Component } = React;
+        const { HashRouter, Route, Link } = ReactRouterDOM;
+
+        const Home = () => <div>Home</div>;
+        const About = () => <div>About</div>;
+        const Things = ({ things }) => {
+            return (
+                <ul>
+                    {things.map(thing => {
+                        return (
+                            <li key = {thing.id}>{ thing.name }</li>
+                        )
+                    })}
+                </ul>
+            )
+        }
+
+        const Nav = ({ location, things }) => {
+            const { pathname } = location;
+            return (
+                <nav>
+                    <Link to='/home'  className = { pathname === '/home' ? 'selected' : ''}>Home</Link>
+                    <Link to='/about' className = { pathname === '/about' ? 'selected' : ''}>About</Link>
+                    <Link to='/things' className = { pathname === '/things' ? 'selected' : ''}>Things ({things.length}) </Link>
+                </nav>
+            )
+        }
+
+        class App extends Component {
+            constructor() {
+                super();
+                this.state = {
+                    things : [],
+                };
+            }
+            
+            componentDidMount() {
+                const things = [
+                    {id: 1, name: 'foo'},
+                    {id: 2, name: 'bar'},
+                    {id: 3, name: 'bazz'},
+                ];
+                setTimeout(() => {
+                    this.setState({ things })
+                }, 500);
+            }
+            
+            render() {
+                const { things } = this.state
+                return (
+                    <HashRouter>
+                        <Route render = { (props) => <Nav things = { things } {...props} /> } />
+                        <Route path ='/home' component = { Home } />
+                        <Route path ='/about' component = { About } />
+                        <Route path ='/things' render = {(props) => <Things things = { things } />} />
+                    </HashRouter>
+                )
+            }
+        }
+
+        ReactDOM.render(<App />, root);
+    </script>
+</html>

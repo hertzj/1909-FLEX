@@ -2,8 +2,70 @@
 const root = document.getElementById('root');
 
 const ourTree = {
-  // YOUR CODE
+  type: 'div',
+  children: [
+    {
+      type: 'div',
+      style: {backgroundColor: 'red'},
+      children: [
+        {
+          type: 'span',
+          textContent: 'hello there'
+        },
+        {
+          type: 'button',
+          textContent: 'click me plz'
+        },
+        {
+          type: 'div',
+          style: {
+            backgroundColor: 'green',
+            width: '50%',
+            height: '300px'
+          },
+          children: [
+            {
+              type: 'span',
+              textContent: 'im a green box'
+            },
+            {
+              type: 'div',
+              style: {
+                display: "flex",
+                width: '100%',
+                height: '100px'
+              },
+              children: [
+                {
+                  type: 'div',
+                  style: {
+                    backgroundColor:'blue',
+                    flexGrow: '1'
+                  }
+                },
+                {
+                  type: 'div',
+                  style: {
+                    backgroundColor: 'purple',
+                    flexGrow: '1'
+                  }
+                },
+                {
+                  type: 'div',
+                  style: {
+                    backgroundColor: 'yellow',
+                    flexGrow: '2'
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 };
+
 
 const DOMRenderer = {
   append: (node, child) => node.appendChild(child),
@@ -14,7 +76,31 @@ const DOMRenderer = {
 
 // The function that uses the rendering API object above (DOMRenderer) to build the page as expected!
 const treeMaker = (soil, tree, renderer) => {
-  // YOUR CODE
+
+
+  const element = renderer.create(tree.type)
+  if (tree.hasOwnProperty('textContent')) {
+    const text = tree.textContent;
+    const textNode = renderer.createText(text);
+    renderer.append(element, textNode);
+  }
+  if (tree.hasOwnProperty('style')) {
+    const styling = tree.style;
+    // eslint-disable-next-line guard-for-in
+    for (const k in styling) {
+      element.style[k] = styling[k];
+    }
+  }
+
+  renderer.append(soil, element)
+  
+  if (tree.hasOwnProperty('children')) {
+    const children = tree.children;
+    children.forEach(child => {
+      treeMaker(element, child, renderer);
+    })
+  }
+  
 };
 
 // DONT TOUCH BELOW

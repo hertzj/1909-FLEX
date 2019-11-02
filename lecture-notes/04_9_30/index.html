@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <title>Forms! September 30 Lecture</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1>Jake's website</h1>
+        <form>
+            <input type="text" class="grower" name="first-name" id="">
+            <input type="text" class="grower" name="last-name" id="">
+            <label for="">
+                <input type="checkbox" name="is-admin" id="">
+                <span class="grower">Is Admin</span>
+            </label>
+            
+            <div id = 'button-container'>
+                <button>Submit</button>
+            </div>
+            <div id="error-field"></div>
+        </form>
+    </body>
+    <script>
+        const form = document.querySelector('form');
+        const input = document.querySelector('input');
+        const errorField = document.getElementById('error-field')
+        const formData = {};
+        
+
+        // form.addEventListener('submit', ev => {
+        //     // console.log(ev);
+        //     // console.log(ev.target.action.split('?'))
+
+        //     const formValues = {}
+
+        //     for (let i = 0; i < ev.target.elements.length; i++) {
+        //         const currentEl = ev.target.elements[i];
+        //         if (currentEl.name && currentEl.value) {
+        //             formValues[currentEl.name] = currentEl.value;
+        //         }
+        //     }
+        //     console.log(formValues)
+        //     ev.preventDefault(); // prevents default behavior
+        // })
+
+
+        // input.addEventListener('keyup', ev => {
+        //     console.log(ev.target.name, ev.target.value);
+        // })
+
+
+        const computeFormData = ev => {
+            const { target: {name, value} } = ev;
+
+            if (name) {
+                formData[name] = value;
+            }
+        }
+
+        const validateFields = () => {
+            const missingFields = Object
+            .entries(formData)
+            .reduce((missing, [key, val]) => {
+                if (!val) return missing.concat(key);
+
+                return missing;
+            }, [])
+            
+            if (missing.fields.length) {
+                errorField.innerHTML = `There is an error!`
+            }
+            else {
+                errorField.innerHTML = '';
+            }
+
+        }
+
+        form.addEventListener('keyup', computeFormData())
+
+        form.addEventListener('submit', ev => {
+            ev.preventDefault(); // prevents default behavior
+        })
+    </script>
+</html>
